@@ -1,0 +1,1461 @@
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ficha RHG — Gustavo Tupan v13</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Barlow+Condensed:wght@500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root{
+      --bg:#0b0c0e; --s1:#111215; --s2:#18191d; --b1:rgba(255,255,255,.06); --b2:rgba(255,255,255,.12);
+      --text:#f3f3f4; --t2:#b5b5bc; --t3:#70707a; --acc:#e8f542; --adim:rgba(232,245,66,.08);
+      --a:#0f172a; --b:#052e16; --c:#1a0533; --d:#2a1406;
+      --fd:'Barlow Condensed',sans-serif; --fs:'Barlow',sans-serif; --fm:'JetBrains Mono',monospace;
+      --r:10px; --r2:14px; --r3:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--text);font-family:var(--fs);font-size:15px;line-height:1.45}
+    .header{position:sticky;top:0;z-index:10;background:#0d0e12;border-bottom:2px solid var(--acc);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-family:var(--fd);font-size:18px;font-weight:800;letter-spacing:.05em}
+    .logo span:last-child{color:var(--acc)}
+    .subhead{font-family:var(--fm);font-size:10px;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;text-align:right}
+    .nav{position:sticky;top:48px;z-index:9;display:flex;gap:2px;overflow:auto;background:var(--s1);border-bottom:1px solid var(--b1);padding:0 6px}
+    .nav button{background:none;border:0;color:var(--t3);padding:12px 14px;font:700 13px var(--fd);letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid transparent;cursor:pointer}
+    .nav button.active{color:var(--text);border-color:var(--acc)}
+    .main{max-width:780px;margin:0 auto;padding:18px 14px 96px}
+    .section{display:none}
+    .section.active{display:block}
+    .hero,.card,.exercise,.note,.stats,.tech,.meso{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2)}
+    .hero{padding:24px 20px;margin-bottom:14px}
+    .eyebrow{font-family:var(--fm);font-size:10px;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:10px}
+    .title{font-family:var(--fd);font-size:38px;font-weight:800;line-height:1;margin-bottom:6px}
+    .subtitle{font-size:14px;color:var(--t2);font-style:italic;margin-bottom:16px}
+    .tags,.weekrow,.statsrow{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-family:var(--fm);font-size:10px;letter-spacing:.08em;padding:4px 10px;border-radius:999px;border:1px solid var(--b2);color:var(--t2)}
+    .week{flex:1 1 160px;padding:14px 12px;border-radius:var(--r2);cursor:pointer;border:1px solid var(--b1);text-align:left}
+    .week.a{background:var(--a)} .week.b{background:var(--b)} .week.c{background:var(--c)} .week.d{background:var(--d)}
+    .wk1{font-family:var(--fm);font-size:10px;letter-spacing:.14em;color:var(--t2);margin-bottom:4px}
+    .wk2{font-family:var(--fd);font-size:22px;font-weight:700}
+    .wk3{font-size:11px;color:var(--t2);margin-top:4px;line-height:1.45}
+    .note{padding:12px 14px;background:var(--adim);border-color:rgba(232,245,66,.16);font-size:12px;color:var(--t2);line-height:1.65}
+    .sectionhead{border-radius:var(--r2);padding:20px 18px 16px;margin-bottom:12px;position:relative;overflow:hidden}
+    .sectionhead::after{content:attr(data-id);position:absolute;right:-8px;top:-12px;font-family:var(--fd);font-size:100px;font-weight:900;opacity:.05}
+    .sa{background:var(--a);border:1px solid rgba(96,165,250,.22)} .sb{background:var(--b);border:1px solid rgba(74,222,128,.22)}
+    .sc{background:var(--c);border:1px solid rgba(192,132,252,.22)} .sd{background:var(--d);border:1px solid rgba(251,146,60,.22)}
+    .shey{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+    .sht{font-family:var(--fd);font-size:28px;font-weight:800;line-height:1.05;margin-bottom:6px}
+    .shr{font-size:12px;color:var(--t2)}
+    .sessionnote{background:var(--s2);border:1px solid var(--b1);border-left:3px solid var(--acc);border-radius:0 var(--r) var(--r) 0;padding:12px 14px;margin-bottom:14px;font-size:13px;color:var(--t2);line-height:1.65}
+    .sessionnote p + p{margin-top:8px}
+    .elist{display:flex;flex-direction:column;gap:10px}
+    .exercise{overflow:hidden}
+    .ehead{display:flex;align-items:center;gap:10px;padding:13px 14px 0}
+    .enum{font-family:var(--fm);font-size:11px;color:var(--t3);min-width:20px}
+    .ename{font-size:15px;font-weight:600;line-height:1.35;flex:1}
+    .pill{font-family:var(--fm);font-size:9px;letter-spacing:.08em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
+    .cv{background:rgba(255,255,255,.08);color:#c7c7cd}
+    .bo{background:rgba(34,197,94,.18);color:#86efac}
+    .mr{background:rgba(168,85,247,.18);color:#c4b5fd}
+    .rp{background:rgba(244,63,94,.18);color:#fda4af}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:10px 14px 0;background:var(--b1);border-radius:var(--r);overflow:hidden}
+    .metric{background:var(--s2);padding:8px 10px}
+    .ml{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+    .mv{font-family:var(--fm);font-size:12px;color:var(--text);line-height:1.35}
+    .how{margin:10px 14px 0;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 11px}
+    .howt{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:5px}
+    .howb{font-size:12px;color:var(--t2);line-height:1.55}
+    .obs{padding:10px 14px 0;font-size:12px;color:var(--t2);line-height:1.6;font-style:italic}.lastbox{margin:10px 14px 0;background:rgba(232,245,66,.05);border:1px solid rgba(232,245,66,.14);border-radius:10px;padding:10px 11px}.lasttitle{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:5px}.lastbody{font-size:12px;color:var(--t2);line-height:1.55}.compareup{color:#86efac;font-weight:700}.comparedown{color:#fda4af;font-weight:700}.compareeq{color:#fde68a;font-weight:700}
+    .log{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:12px 14px 14px}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .wide{grid-column:1/-1}
+    label{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+    input,textarea,select{width:100%;background:var(--s2);color:var(--text);border:1px solid var(--b1);border-radius:10px;padding:10px 11px;font:500 14px var(--fs)}
+    textarea{min-height:82px;resize:vertical}
+    .history{border-top:1px solid var(--b1);padding:10px 14px 13px}
+    .ht{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+    .hi{font-size:12px;color:var(--t2);line-height:1.5;padding:6px 0;border-top:1px dashed rgba(255,255,255,.06)}
+    .hi:first-child{border-top:0;padding-top:0}
+    .footer{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 12px;background:linear-gradient(to top,#0b0c0e 78%,rgba(11,12,14,.72));backdrop-filter:blur(10px);border-top:1px solid var(--b1)}
+    .btn{flex:1;background:var(--s2);color:var(--text);border:1px solid var(--b1);border-radius:12px;padding:12px 10px;font:700 12px var(--fd);letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+    .btn.primary{background:var(--acc);color:#0b0c0e;border-color:transparent}
+    .stats,.tech,.meso{padding:14px}
+    .stitle{font-family:var(--fd);font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:10px}
+    .statsrow{margin-bottom:12px}
+    .stat{flex:1;padding:12px;background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2)}
+    .snum{font-family:var(--fd);font-size:28px;font-weight:800;line-height:1}
+    .slab{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-top:4px}
+    .vr{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-top:1px dashed rgba(255,255,255,.06)}
+    .vr:first-child{border-top:0;padding-top:0}
+    .vnum{font-family:var(--fm);font-size:12px;color:var(--acc)}
+    .techname{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;font-size:14px;margin-bottom:8px}
+    .techdesc{font-size:13px;color:var(--t2);line-height:1.65}
+    .mhead{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start}
+    .mw{font-family:var(--fm);font-size:10px;color:var(--t3);margin-bottom:3px}
+    .mp{font-family:var(--fd);font-size:17px;font-weight:700;line-height:1.1}
+    .mrir,.msets{font-family:var(--fm);font-size:11px;color:var(--t2);margin-top:4px}
+    .mnote{font-size:12px;color:var(--t2);line-height:1.6}
+    .prog{margin-top:8px;height:4px;background:var(--b1);border-radius:99px;overflow:hidden}
+    .prog div{height:100%;background:var(--acc)}
+    .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:76px;background:#101114;border:1px solid var(--b2);color:var(--text);padding:10px 12px;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:.2s}
+    .toast.show{opacity:1}
+    @media (max-width:600px){.title{font-size:34px}.metrics,.log{grid-template-columns:1fr}}
+  
+.histpage-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.hist-ex-title{font-size:14px;font-weight:700;margin-bottom:8px}
+.hist-session{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.hist-entry{padding:10px 0;border-top:1px dashed rgba(255,255,255,.08);font-size:12px;color:var(--t2);line-height:1.55}
+.hist-entry:first-child{border-top:0;padding-top:0}
+.badge-up,.badge-down,.badge-eq{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:999px;font-family:var(--fm);font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.badge-up{background:rgba(134,239,172,.12);color:#86efac}
+.badge-down{background:rgba(253,164,175,.12);color:#fda4af}
+.badge-eq{background:rgba(253,230,138,.12);color:#fde68a}
+
+
+.techcard{cursor:pointer;transition:.18s}
+.techcard:hover{border-color:var(--b2)}
+.techmore{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+.techcard.open .techmore{display:block}
+.techtip{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-top:10px}
+.checkrow{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 11px;min-height:44px}
+.checkrow input[type="checkbox"]{width:18px;height:18px;accent-color:#e8f542;cursor:pointer}
+.checklabel{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--t2)}
+
+
+.exercise.comp-up{border-color:rgba(134,239,172,.35);box-shadow:0 0 0 1px rgba(134,239,172,.08) inset}
+.exercise.comp-down{border-color:rgba(253,164,175,.35);box-shadow:0 0 0 1px rgba(253,164,175,.08) inset}
+.exercise.comp-eq{border-color:rgba(253,230,138,.35);box-shadow:0 0 0 1px rgba(253,230,138,.08) inset}
+.exercise.comp-up .ehead{background:linear-gradient(to right, rgba(134,239,172,.07), transparent)}
+.exercise.comp-down .ehead{background:linear-gradient(to right, rgba(253,164,175,.07), transparent)}
+.exercise.comp-eq .ehead{background:linear-gradient(to right, rgba(253,230,138,.07), transparent)}
+.linewrap{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+.linechart{width:100%;height:140px;display:block;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px}
+.linelegend{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.litem{display:flex;align-items:center;gap:6px;font-family:var(--fm);font-size:10px;color:var(--t2)}
+.ldot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.35)}
+.ldot.curr{background:rgba(232,245,66,.9)}
+.ldot.prev{background:rgba(255,255,255,.45)}
+
+
+.sparkwrap{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+.sparkchart{width:100%;height:120px;display:block;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px}
+.sparklegend{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:8px;font-family:var(--fm);font-size:10px;color:var(--t2)}
+.histgroup{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2);margin-bottom:10px;overflow:hidden}
+.histtoggle{width:100%;background:none;border:0;color:var(--text);padding:14px;text-align:left;cursor:pointer}
+.histtoggle:hover{background:rgba(255,255,255,.02)}
+.histtop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.histleft{display:flex;flex-direction:column;gap:4px}
+.histmeta{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.histchev{font-family:var(--fm);font-size:12px;color:var(--acc)}
+.histcontent{display:none;padding:0 14px 14px}
+.histgroup.open .histcontent{display:block}
+.histmini{font-size:12px;color:var(--t2);line-height:1.55;margin-bottom:10px}
+
+
+.storytip{font-size:12px;color:var(--t2);margin-top:8px;line-height:1.5}
+
+
+.setsgrid{display:flex;flex-direction:column;gap:10px;padding:12px 14px 0}
+.setcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px}
+.sethead{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.setfields{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (max-width:600px){.setfields{grid-template-columns:1fr}}
+
+
+.histactions{display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px}
+.histclearbtn{background:rgba(253,164,175,.08);color:#fda4af;border:1px solid rgba(253,164,175,.18);border-radius:10px;padding:8px 10px;font:700 11px var(--fm);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.histclearbtn:hover{background:rgba(253,164,175,.12)}
+
+
+.setcompare{margin-top:8px;font-size:11px;line-height:1.5;color:var(--t2)}
+.setcheck{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.08)}
+.setcheck input[type="checkbox"]{width:16px;height:16px;accent-color:#e8f542;cursor:pointer}
+.setcheck span{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t2)}
+.setcard.done{border-color:rgba(134,239,172,.22);background:rgba(134,239,172,.04)}
+.multilinewrap{margin:10px 0 12px}
+.multilinechart{width:100%;height:180px;display:block;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px}
+.multilegend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.multilegend .item{display:flex;align-items:center;gap:6px;font-family:var(--fm);font-size:10px;color:var(--t2)}
+.multilegend .dot{width:10px;height:10px;border-radius:999px}
+
+
+.sharemodal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;z-index:80;padding:20px}
+.sharemodal.show{display:flex}
+.sharebox{width:min(100%,440px);background:var(--s1);border:1px solid var(--b1);border-radius:22px;padding:16px;box-shadow:0 24px 80px rgba(0,0,0,.35)}
+.sharehead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.sharetitle{font-family:var(--fd);font-size:22px;font-weight:800}
+.shareclose{background:none;border:0;color:var(--t2);font-size:22px;cursor:pointer}
+.sharecard{background:radial-gradient(circle at top right, rgba(232,245,66,.10), transparent 28%),linear-gradient(180deg,#121319 0%,#0d0f14 100%);border:1px solid rgba(255,255,255,.06);border-radius:28px;padding:22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.sharetopnote{font-size:13px;font-weight:700;color:#f3f3f4;text-align:center;margin-bottom:4px}
+.sharetopsub{font-size:12px;color:var(--t2);text-align:center;margin-bottom:16px}
+.sharebrandrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sharebrandmark{width:42px;height:42px;border-radius:14px;border:1px solid rgba(232,245,66,.22);background:rgba(232,245,66,.08);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:18px;font-weight:800;color:var(--acc)}
+.sharebrandtext{font-family:var(--fd);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.sharemain{font-family:var(--fd);font-size:34px;font-weight:800;line-height:1.02;margin-bottom:8px;text-align:center}
+.sharesub{font-size:14px;color:var(--text);text-align:center;margin-bottom:4px;font-weight:600}
+.sharemeta{font-family:var(--fm);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px;text-align:center}
+.sharegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.sharestat{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:14px}
+.sharestat .k{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.sharestat .v{font-family:var(--fd);font-size:28px;font-weight:800;line-height:1}
+.sharestat .s{font-size:12px;color:var(--t2);margin-top:6px}
+.sharemuscles,.sharebest{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);border-radius:18px;padding:14px;margin-top:10px}
+.sharemuscles .k,.sharebest .k{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.sharemuscles .k{color:var(--t3)}
+.sharebest .k{color:var(--acc)}
+.sharemuscles .v,.sharebest .v{font-size:15px;font-weight:700;line-height:1.35}
+.shareactions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.sharehint{font-size:12px;color:var(--t2);line-height:1.5;margin-top:10px}
+
+
+.finishwrap{margin-top:18px}
+.finishbtn{
+  width:100%;
+  padding:16px;
+  border-radius:14px;
+  border:1px solid rgba(232,245,66,.30);
+  background:linear-gradient(180deg,rgba(232,245,66,.18),rgba(232,245,66,.08));
+  color:var(--text);
+  font-family:var(--fd);
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+.finishbtn:hover{border-color:rgba(232,245,66,.45)}
+.finishsub{margin-top:8px;font-size:12px;color:var(--t2);line-height:1.45}
+
+
+/* FIX TEXTO SESSÕES */
+.section-card, .section-card * {
+  color: #fff !important;
+}
+
+
+.histsession{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r2);margin-bottom:12px;overflow:hidden}
+.histsessiontoggle{width:100%;background:none;border:0;color:var(--text);padding:14px;text-align:left;cursor:pointer}
+.histsessiontop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.histsessionmeta{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--t3)}
+.histsessiontitle{font-size:16px;font-weight:800}
+.histsessioncount{font-size:12px;color:var(--t2)}
+.histsessioncontent{display:none;padding:0 14px 14px}
+.histsession.open .histsessioncontent{display:block}
+
+
+/* Finish animation */
+.finish-overlay{
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(11,12,14,.82); backdrop-filter:blur(8px);
+  z-index:9999; opacity:0; pointer-events:none; transition:opacity .28s ease;
+}
+.finish-overlay.show{opacity:1; pointer-events:auto;}
+.finish-card{
+  background:linear-gradient(180deg,#131418,#0f1115);
+  border:1px solid rgba(217,240,65,.22);
+  border-radius:22px;
+  padding:26px 24px;
+  text-align:center;
+  min-width:280px;
+  box-shadow:0 18px 50px rgba(0,0,0,.35);
+  transform:translateY(16px) scale(.96);
+  transition:transform .32s ease;
+}
+.finish-overlay.show .finish-card{transform:translateY(0) scale(1);}
+.finish-check{
+  width:68px; height:68px; margin:0 auto 14px;
+  border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(217,240,65,.12);
+  border:1px solid rgba(217,240,65,.24);
+  color:#d9f041; font-size:34px; font-weight:900;
+  animation:finishPulse .9s ease;
+}
+.finish-title{
+  font-size:1.2rem; font-weight:900; color:#f3f4f6; margin-bottom:6px;
+}
+.finish-sub{
+  font-size:.92rem; color:#a1a1aa;
+}
+@keyframes finishPulse{
+  0%{transform:scale(.7); opacity:0}
+  60%{transform:scale(1.08); opacity:1}
+  100%{transform:scale(1)}
+}
+
+
+.timerbox{margin:12px 0 14px;padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.timerhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.timerlabel{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.timervalue{font-family:var(--fd);font-size:36px;font-weight:800;line-height:1;color:var(--text)}
+.timerhint{font-size:12px;color:var(--t2);line-height:1.45;margin-top:8px}
+.timeractions{display:flex;gap:8px;flex-wrap:wrap}
+.timerbtn{background:var(--s2);color:var(--text);border:1px solid var(--b1);border-radius:12px;padding:10px 12px;font:700 12px var(--fd);letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.timerbtn.primary{background:var(--acc);color:#0b0c0e;border-color:transparent}
+.timerstatus{font-family:var(--fm);font-size:10px;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
+
+</style>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<header class="header">
+<div class="logo">TEAM <span>RHG</span></div>
+<div class="subhead">ficha offline<br/>consultoria premium</div>
+</header>
+<nav class="nav" id="nav"></nav>
+<main class="main">
+<section class="section active" id="inicio"></section>
+<section class="section" id="u1"></section>
+<section class="section" id="l1"></section>
+<section class="section" id="u2"></section>
+<section class="section" id="l2"></section>
+<section class="section" id="coach"></section>
+<section class="section" id="tecnicas"></section>
+<section class="section" id="d6"></section>
+    <section class="section" id="historico"></section>
+</main>
+<div class="footer">
+<button class="btn" id="reportBtn">Copiar resumo</button>
+    <button class="btn" id="shareImageBtn">Compartilhar treino</button>
+
+</div>
+<div class="toast" id="toast"></div>
+<script>
+    const STORAGE_KEY = 'rhg_gustavo_tupan_upper_lower_final';
+    const APP = { athlete:'Gabriela Kleimpaul', plan:'Push · Pull · Legs · Descanso · Upper · Lower', week:'Semana 1', logs:{}, timers:{} };
+
+    const VOLUME = [
+      ['Peito','9 séries diretas'],
+      ['Costas','9 séries diretas'],
+      ['Ombro anterior','3 séries diretas + sinergia dos supinos'],
+      ['Ombro lateral','3 séries diretas'],
+      ['Ombro posterior','3 séries diretas'],
+      ['Tríceps','5 séries diretas + sinergia das empurradas'],
+      ['Bíceps','4 séries diretas + sinergia das puxadas'],
+      ['Quadríceps','12 séries diretas'],
+      ['Posterior de coxa','6 séries diretas'],
+      ['Glúteos','9–12 séries efetivas'],
+      ['Panturrilhas','6 séries diretas']
+    ];
+
+
+    const TECHS = [
+      {
+        name:'Convencional',
+        cls:'cv',
+        desc:'É a série normal. Faz as reps pedidas com boa forma e tenta melhorar aos poucos nas próximas semanas.',
+        more:'Aqui o foco é simples: controlar a execução, repetir o padrão mecânico e progredir sem pressa. Se bater o topo da faixa de reps com técnica boa, aí sim vale subir um pouco a carga no treino seguinte.'
+      },
+      {
+        name:'Back-Off Set',
+        cls:'bo',
+        desc:'Depois das séries mais pesadas, tira um pouco de carga e faz mais uma série para somar volume.',
+        more:'A ideia é aproveitar que o músculo já foi bem ativado nas séries principais e colocar mais trabalho útil sem transformar tudo em série pesada. Normalmente a carga cai um pouco e você busca uma série limpa, com sensação forte no músculo.'
+      },
+      {
+        name:'Muscle Round',
+        cls:'mr',
+        desc:'Em vez de uma série longa, você faz blocos curtos de reps com pausas pequenas.',
+        more:'Funciona muito bem em máquinas e exercícios estáveis. Você faz mini-blocos, por exemplo 4 reps, pausa curta, mais 4 reps, e repete. Isso ajuda a manter a execução bonita por mais tempo e aumenta a densidade do estímulo sem bagunçar a técnica.'
+      },
+      {
+        name:'Rest-Pause',
+        cls:'rp',
+        desc:'Você faz a série, descansa poucos segundos e continua para extrair mais estímulo no final.',
+        more:'É uma técnica para o fim da série e só faz sentido quando o exercício é seguro e o padrão continua firme. A pausa é curta, só o suficiente para conseguir algumas reps extras sem virar qualquer coisa.'
+      }
+    ];
+
+    const SESSIONS = {
+      u1: {
+        tab:'Push', id:'P1', cls:'sa',
+        eyebrow:'Dia 01 · Push',
+        title:'Push',
+        summary:'Peito, deltoides e tríceps',
+        note:[
+          'Ênfase em empurrar: peitoral, deltoides e tríceps.',
+          'Use o registro das séries para comparar a evolução do último treino com o treino atual.'
+        ],
+        exercises:[
+          {key:'u1_supino_inc',name:'Supino Inclinado com Halteres',sets:'3 válidas',reps:'8–10 reps',rir:'RIR 2–3',tech:'Convencional',how:'Empurrada diagonal para peitoral clavicular e deltoide anterior. Mantém estabilidade e busca progressão gradual.',obs:'Escápulas estáveis e mesma técnica nas 3 séries.'},
+          {key:'u1_crucifixo_halter',name:'Crucifixo com Halteres (Banco Plano)',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Adução horizontal com foco em peitoral e tensão no alongamento.',obs:'Controlar a abertura e não transformar o movimento em supino.'},
+          {key:'u1_desenv',name:'Desenvolvimento com Halteres',sets:'3 válidas',reps:'8–10 reps',rir:'RIR 2–3',tech:'Convencional',how:'Empurrada vertical para deltoides, mantendo caminho limpo e sem roubar com lombar.',obs:'Subir firme e controlar a descida.'},
+          {key:'u1_ele_lateral',name:'Elevação Lateral com Halteres',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Abdução do ombro com foco no deltóide médio, sem balanço.',obs:'Tensão contínua e controle do topo à descida.'},
+          {key:'u1_triceps_pulley',name:'Tríceps Pulley',sets:'3 válidas',reps:'8–10 reps',rir:'RIR 1–2',tech:'Convencional',how:'Extensão de cotovelo na polia com foco em controle e boa contração do tríceps.',obs:'Cotovelos firmes ao lado do corpo e descida completa sem roubar.'}
+        ]
+      },
+      l1: {
+        tab:'Pull', id:'P2', cls:'sb',
+        eyebrow:'Dia 02 · Pull',
+        title:'Pull',
+        summary:'Dorsal, bíceps e posterior de ombro',
+        note:[
+          'Ênfase em puxar: costas, bíceps e posterior de ombro.',
+          'Registrar bem as cargas ajuda a comparar puxadas e remadas entre treinos.'
+        ],
+        exercises:[
+          {key:'l1_puxada_pronada',name:'Puxada Frontal na Polia (Pegada Pronada)',sets:'3 válidas',reps:'8–10 reps',rir:'RIR 2–3',tech:'Convencional',how:'Puxada vertical para dorsal amplo com pegada pronada.',obs:'Evitar jogar o tronco para trás e puxar com controle.'},
+          {key:'l1_remada_uni',name:'Remada Unilateral com Halter',sets:'3 válidas',reps:'10–12 reps',rir:'RIR 2–3',tech:'Convencional',how:'Puxada horizontal com apoio, pensando em dorsal e romboides.',obs:'Sem girar o tronco para ajudar a repetição.'},
+          {key:'l1_rosca_direta_halter',name:'Rosca Direta com Halteres',sets:'2 válidas',reps:'10–12 reps',rir:'RIR 1–2',tech:'Convencional',how:'Flexão de cotovelo focando bíceps sem embalo.',obs:'Controlar bem a descida.'},
+          {key:'l1_facepull',name:'Face Pull (Polia + Corda)',sets:'3 válidas',reps:'15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Retração escapular e rotação externa para posterior de ombro e manguito.',obs:'Trazer em direção ao rosto com cotovelos altos.'}
+        ]
+      },
+      u2: {
+        tab:'Legs', id:'L1', cls:'sc',
+        eyebrow:'Dia 03 · Legs',
+        title:'Legs',
+        summary:'Dominante de joelho + dominante de quadril',
+        note:[
+          'Ênfase em quadríceps, posteriores e glúteos numa sessão completa de pernas.',
+          'O ideal é manter a consistência da técnica para o comparativo por série ficar útil.'
+        ],
+        exercises:[
+          {key:'u2_agachamento',name:'Agachamento Livre / Goblet Squat',sets:'3 válidas',reps:'8–10 reps',rir:'RIR 2–3',tech:'Convencional',how:'Composto axial com foco em quadríceps e glúteos.',obs:'Amplitude consistente e tronco firme.'},
+          {key:'u2_extensora',name:'Extensão de Joelho (Cadeira Extensora)',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Isolador de quadríceps com boa contração no topo.',obs:'Segurar um pouco no topo e controlar a volta.'},
+          {key:'u2_stiff',name:'Stiff com Barra',sets:'3 válidas',reps:'7–9 reps',rir:'RIR 2–3',tech:'Convencional',how:'Hinge com barra, buscando tensão forte nos posteriores e boa estabilidade do tronco.',obs:'Quadril vai para trás, coluna neutra e barra próxima do corpo.'},
+          {key:'u2_abducao',name:'Abdução de Quadril na Máquina',sets:'3 válidas',reps:'15–20 reps',rir:'RIR 1–2',tech:'Convencional',how:'Glúteo médio com foco em controle e constância.',obs:'Sem embalo e sem perder amplitude.'},
+          {key:'u2_pant_pe',name:'Panturrilha em Pé',sets:'3 válidas',reps:'15–20 reps',rir:'RIR 1',tech:'Convencional',how:'Panturrilha com joelho estendido e amplitude máxima.',obs:'Alongar bem embaixo e contrair forte no topo.'}
+        ]
+      },
+      l2: {
+        tab:'Upper', id:'U2', cls:'sd',
+        eyebrow:'Dia 05 · Upper',
+        title:'Upper',
+        summary:'2ª frequência do superior',
+        note:[
+          'Segunda frequência do superior com vetores complementares para peito, dorsal e braços.',
+          'É um treino enxuto, ótimo para observar progressão de qualidade nas séries.'
+        ],
+        exercises:[
+          {key:'l2_crossover',name:'Crossover na Polia Alta',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Adução diagonal alto para baixo para peitoral inferior e esternal.',obs:'Tensão contínua no peitoral, sem transformar em tríceps.'},
+          {key:'l2_pullover',name:'Pullover na Polia Alta (Corda)',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Adução sagital com braço acima para dorsal em alongamento.',obs:'Não roubar com tronco.'},
+          {key:'l2_rosca_inclinada',name:'Rosca Inclinada com Halteres',sets:'2 válidas',reps:'10–12 reps',rir:'RIR 1–2',tech:'Convencional',how:'Bíceps em grande alongamento, com subida limpa.',obs:'Controlar a parte baixa do movimento.'},
+          {key:'l2_triceps_frances',name:'Tríceps Francês com Halter (Overhead)',sets:'2 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Extensão acima da cabeça para alongar bem o tríceps.',obs:'Evitar abrir demais os cotovelos.'}
+        ]
+      },
+      d6: {
+        tab:'Lower', id:'L2', cls:'sb',
+        eyebrow:'Dia 06 · Lower',
+        title:'Lower',
+        summary:'2ª frequência do inferior',
+        note:[
+          'Segunda frequência do inferior reforçando quadríceps, posteriores, glúteos e panturrilhas.',
+          'Essa sessão complementa o Legs e fecha a semana de inferiores.'
+        ],
+        exercises:[
+          {key:'d6_leg45',name:'Leg Press 45°',sets:'3 válidas',reps:'10–12 reps',rir:'RIR 1–2',tech:'Convencional',how:'Composto bilateral para quadríceps sem tanta demanda de estabilização.',obs:'Descer com controle e empurrar firme sem perder posição.'},
+          {key:'d6_extensora',name:'Cadeira Extensora',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Isolador de quadríceps para complementar a frequência da semana.',obs:'Boa contração no topo e descida controlada.'},
+          {key:'d6_flexora',name:'Mesa Flexora',sets:'3 válidas',reps:'12–15 reps',rir:'RIR 1–2',tech:'Convencional',how:'Isquiotibiais com quadril neutro, num ângulo diferente do stiff.',obs:'Controlar a volta sem perder tensão.'},
+          {key:'d6_hipthrust',name:'Elevação de Quadril (Hip Thrust)',sets:'3 válidas',reps:'10–12 reps',rir:'RIR 1–2',tech:'Convencional',how:'Glúteo em posição encurtada, ótima para força e volume efetivo.',obs:'Subir até alinhar o corpo e contrair glúteos no topo.'},
+          {key:'d6_pant_sentada',name:'Panturrilha Sentada (Sóleo)',sets:'3 válidas',reps:'15–20 reps',rir:'RIR 1',tech:'Convencional',how:'Trabalho de sóleo com joelho flexionado.',obs:'Amplitude máxima e ritmo constante.'}
+        ]
+      }
+    };
+
+    function techCls(t){ if(t==='Back-Off Set') return 'bo'; if(t==='Muscle Round') return 'mr'; if(t==='Rest-Pause') return 'rp'; return 'cv'; }
+    function getLog(s,e){ APP.logs[s] ||= {}; APP.logs[s][e] ||= {load:'',bodyweight:'',addload:'',reps:'',rir:'',effort:'',notes:'',done:false,history:[],set1_load:'',set1_reps:'',set1_rir:'',set1_done:false,set2_load:'',set2_reps:'',set2_rir:'',set2_done:false,set3_load:'',set3_reps:'',set3_rir:'',set3_done:false,set4_load:'',set4_reps:'',set4_rir:'',set4_done:false}; return APP.logs[s][e]; }
+    function saveState(silent=false){ localStorage.setItem(STORAGE_KEY, JSON.stringify(APP)); if(!silent) showToast('Salvo no aparelho.'); }
+    function loadState(){ const raw = localStorage.getItem(STORAGE_KEY); if(raw){ try{ const parsed = JSON.parse(raw); APP.logs = parsed.logs || {}; APP.timers = parsed.timers || {}; Object.entries(APP.logs).forEach(([sessionKey, session]) => Object.entries(session || {}).forEach(([exKey, log]) => { if(log){ ensureLegacySets(log); for(let i=1;i<=4;i++){ if(typeof log[`set${i}_done`] !== 'boolean') log[`set${i}_done`] = false; } const ex = (SESSIONS[sessionKey]?.exercises || []).find(item => item.key === exKey); if(ex){ log.load = currentLoadValue(ex, log) || log.load || ''; log.reps = totalPerformedReps(log, setCountFromExercise(ex)) || log.reps || ''; log.rir = averagePerformedRir(log, setCountFromExercise(ex)) || log.rir || ''; if(!isDipsExercise(ex)) log.done = areAllSetsChecked(log, setCountFromExercise(ex)); } } })); }catch(e){} } }
+    function showToast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(window._tt); window._tt=setTimeout(()=>el.classList.remove('show'),1800); }
+
+    function formatKg(value){
+      return String(value).replace('.', ',');
+    }
+    function isDipsExercise(ex){
+      return ex.key === 'u2_dips_peitoral';
+    }
+    function dipsTotal(log){
+      const bw = parseLoad(log.bodyweight);
+      const add = parseLoad(log.addload);
+      if(bw === null) return null;
+      return +((bw) + (add || 0)).toFixed(2);
+    }
+    function currentLoadValue(ex, log){
+      if(isDipsExercise(ex)){
+        const total = dipsTotal(log);
+        return total === null ? '' : formatKg(total);
+      }
+      return bestSetLoad(log, setCountFromExercise(ex));
+    }
+    function currentSnapshot(ex, log){
+      const setCount = setCountFromExercise(ex);
+      return {
+        load: currentLoadValue(ex, log),
+        bodyweight: log.bodyweight || '',
+        addload: log.addload || '',
+        reps: totalPerformedReps(log, setCount),
+        rir: averagePerformedRir(log, setCount),
+        effort: log.effort || '',
+        notes: log.notes || '',
+        set1_load: log.set1_load || '', set1_reps: log.set1_reps || '', set1_rir: log.set1_rir || '',
+        set2_load: log.set2_load || '', set2_reps: log.set2_reps || '', set2_rir: log.set2_rir || '',
+        set3_load: log.set3_load || '', set3_reps: log.set3_reps || '', set3_rir: log.set3_rir || '',
+        set4_load: log.set4_load || '', set4_reps: log.set4_reps || '', set4_rir: log.set4_rir || ''
+      };
+    }
+    function sameEntry(a, b){
+      if(!a || !b) return false;
+      return String(a.load || '') === String(b.load || '')
+        && String(a.bodyweight || '') === String(b.bodyweight || '')
+        && String(a.addload || '') === String(b.addload || '')
+        && String(a.reps || '') === String(b.reps || '')
+        && String(a.rir || '') === String(b.rir || '')
+        && String(a.effort || '') === String(b.effort || '')
+        && String(a.notes || '') === String(b.notes || '')
+        && String(a.set1_load || '') === String(b.set1_load || '')
+        && String(a.set1_reps || '') === String(b.set1_reps || '')
+        && String(a.set1_rir || '') === String(b.set1_rir || '')
+        && String(a.set2_load || '') === String(b.set2_load || '')
+        && String(a.set2_reps || '') === String(b.set2_reps || '')
+        && String(a.set2_rir || '') === String(b.set2_rir || '')
+        && String(a.set3_load || '') === String(b.set3_load || '')
+        && String(a.set3_reps || '') === String(b.set3_reps || '')
+        && String(a.set3_rir || '') === String(b.set3_rir || '')
+        && String(a.set4_load || '') === String(b.set4_load || '')
+        && String(a.set4_reps || '') === String(b.set4_reps || '')
+        && String(a.set4_rir || '') === String(b.set4_rir || '');
+    }
+    function referenceEntry(ex, log){
+      const history = log.history || [];
+      if(!history.length) return null;
+
+      const snap = currentSnapshot(ex, log);
+      const last = history[0];
+
+      if(sameEntry(snap, last)){
+        return history[1] || null;
+      }
+
+      return last;
+    }
+    function lastLoadLabel(ex, last){
+      if(!last) return 'Último treino: sem registro ainda.';
+      if(isDipsExercise(ex)){
+        const parts = [];
+        if(last.bodyweight) parts.push(`PC ${last.bodyweight} kg`);
+        if(last.addload) parts.push(`+ ${last.addload} kg`);
+        const detail = parts.length ? ` (${parts.join(' ')})` : '';
+        return `Último treino: <strong>${last.load || '-'} kg total</strong>${detail} · ${last.reps || '-'} reps · RIR ${last.rir || '-'} · ${last.date}`;
+      }
+      const count = setCountFromExercise(ex);
+      const setsText = Array.from({length:count}, (_,idx)=>idx+1)
+        .map(n => (last[`set${n}_load`] || last[`set${n}_reps`] || last[`set${n}_rir`]) ? `S${n}: ${last[`set${n}_load`] || '-'}kg/${last[`set${n}_reps`] || '-'} reps/RIR ${last[`set${n}_rir`] || '-'}` : '')
+        .filter(Boolean)
+        .join(' · ');
+      return `Último treino: <strong>${last.load || '-'} kg</strong> · ${last.reps || '-'} reps · RIR ${last.rir || '-'} · ${last.date}${setsText ? '<br>' + setsText : ''}`;
+    }
+    function loadFieldsHtml(sessionKey, ex, log){
+      if(isDipsExercise(ex)){
+        const total = dipsTotal(log);
+        return `
+      <div class="field"><label>Peso corporal (kg)</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="bodyweight" value="${log.bodyweight || ''}" placeholder="ex: 82"></div>
+      <div class="field"><label>Carga adicional (kg)</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="addload" value="${log.addload || ''}" placeholder="opcional"></div>
+      <div class="field"><label>Carga total</label><input value="${total === null ? '' : formatKg(total)}" placeholder="automático" readonly></div>`;
+      }
+      return `<div class="field"><label>Carga (kg)</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="load" value="${log.load}"></div>`;
+    }
+
+    function parseLoad(value){
+      if(value === undefined || value === null) return null;
+      const cleaned = String(value).replace(',', '.').replace(/[^0-9.\-]/g,'').trim();
+      if(!cleaned) return null;
+      const num = Number(cleaned);
+      return Number.isFinite(num) ? num : null;
+    }
+    function compareText(current, previous){
+      const cur = parseLoad(current), prev = parseLoad(previous);
+      if(cur === null || prev === null) return {text:'Preencha a carga de hoje para comparar.', cls:''};
+      const diff = +(cur - prev).toFixed(2);
+      if(diff > 0) return {text:`+${String(diff).replace('.', ',')} kg em relação ao último treino`, cls:'compareup'};
+      if(diff < 0) return {text:`${String(diff).replace('.', ',')} kg em relação ao último treino`, cls:'comparedown'};
+      return {text:'Mesma carga do último treino', cls:'compareeq'};
+    }
+    function pushHistory(sessionKey, exKey){
+  const log = getLog(sessionKey, exKey);
+  const ex = SESSIONS[sessionKey].exercises.find(item => item.key === exKey);
+  const setCount = ex ? setCountFromExercise(ex) : 1;
+  const effectiveLoad = ex ? currentLoadValue(ex, log) : (log.load || '');
+  const effectiveReps = ex && isDipsExercise(ex) ? (log.reps || '') : totalPerformedReps(log, setCount);
+  const effectiveRir = ex && isDipsExercise(ex) ? (log.rir || '') : averagePerformedRir(log, setCount);
+
+  if(!effectiveLoad && !effectiveReps && !effectiveRir && !log.notes) return;
+
+  log.load = effectiveLoad || '';
+  log.reps = effectiveReps || '';
+  log.rir = effectiveRir || '';
+
+  log.history ||= [];
+  const entry = {
+    date: new Date().toLocaleDateString('pt-BR'),
+    load: effectiveLoad || '',
+    bodyweight: log.bodyweight || '',
+    addload: log.addload || '',
+    reps: effectiveReps || '',
+    rir: effectiveRir || '',
+    effort: log.effort || '',
+    notes: log.notes || '',
+    set1_load: log.set1_load || '', set1_reps: log.set1_reps || '', set1_rir: log.set1_rir || '',
+    set2_load: log.set2_load || '', set2_reps: log.set2_reps || '', set2_rir: log.set2_rir || '',
+    set3_load: log.set3_load || '', set3_reps: log.set3_reps || '', set3_rir: log.set3_rir || '',
+    set4_load: log.set4_load || '', set4_reps: log.set4_reps || '', set4_rir: log.set4_rir || ''
+  };
+  const first = log.history[0];
+  if(first && sameEntry(entry, first)) return;
+  log.history.unshift(entry);
+  log.history = log.history.slice(0,5);
+}
+
+    function historyHtml(h, ex){
+      if(!h || !h.length) return '<div class="history"><div class="ht">Histórico recente</div><div class="hi">Sem registros ainda.</div></div>';
+      return '<div class="history"><div class="ht">Histórico recente</div>' + h.slice(0,3).map(x=>{
+        const extra = isDipsExercise(ex) ? ` · Total ${x.load || '-'} kg${x.bodyweight ? ` (PC ${x.bodyweight} kg${x.addload ? ` + ${x.addload} kg` : ''})` : ''}` : `${x.load || '-'} kg`;
+        return `<div class="hi"><strong>${x.date}</strong><br>${extra} · ${x.reps||'-'} reps totais · RIR médio ${x.rir||'-'}${x.notes ? '<br>'+x.notes : ''}</div>`;
+      }).join('') + '</div>';
+    }
+    
+
+function setCountFromExercise(ex){
+  const m = String(ex.sets || '').match(/(\d+)/);
+  const n = m ? Number(m[1]) : 1;
+  return Math.max(1, Math.min(n, 4));
+}
+function ensureLegacySets(log){
+  if(!log.set1_load && log.load) log.set1_load = log.load;
+  if(!log.set1_reps && log.reps) log.set1_reps = log.reps;
+  if(!log.set1_rir && log.rir) log.set1_rir = log.rir;
+}
+function bestSetLoad(log, setCount){
+  const vals = [];
+  for(let i=1;i<=setCount;i++){
+    const v = parseLoad(log[`set${i}_load`]);
+    if(v !== null) vals.push(v);
+  }
+  if(!vals.length){
+    const legacy = parseLoad(log.load);
+    return legacy === null ? '' : formatKg(legacy);
+  }
+  return formatKg(Math.max(...vals));
+}
+function totalPerformedReps(log, setCount){
+  let total = 0, has = false;
+  for(let i=1;i<=setCount;i++){
+    const v = Number(String(log[`set${i}_reps`] || '').replace(',', '.'));
+    if(Number.isFinite(v) && v > 0){ total += v; has = true; }
+  }
+  if(has) return String(total);
+  return log.reps || '';
+}
+function averagePerformedRir(log, setCount){
+  const vals = [];
+  for(let i=1;i<=setCount;i++){
+    const v = Number(String(log[`set${i}_rir`] || '').replace(',', '.'));
+    if(Number.isFinite(v)) vals.push(v);
+  }
+  if(vals.length) return (Math.round((vals.reduce((a,b)=>a+b,0)/vals.length)*10)/10).toString().replace('.', ',');
+  return log.rir || '';
+}
+function areAllSetsChecked(log, setCount){
+  for(let i=1;i<=setCount;i++){
+    if(!log[`set${i}_done`]) return false;
+  }
+  return setCount > 0;
+}
+function getSetSnapshot(log, n){
+  return { load: log[`set${n}_load`] || '', reps: log[`set${n}_reps`] || '', rir: log[`set${n}_rir`] || '' };
+}
+function compareSetInfo(currentSet, previousSet){
+  if(!previousSet) return {text:'Sem série anterior salva para comparar.', cls:''};
+  const parts = [];
+  let cls = '';
+
+  const curLoad = parseLoad(currentSet.load), prevLoad = parseLoad(previousSet.load);
+  if(curLoad !== null && prevLoad !== null){
+    const diff = +(curLoad - prevLoad).toFixed(2);
+    if(diff > 0){ parts.push(`Carga +${String(diff).replace('.', ',')} kg`); cls = 'compareup'; }
+    else if(diff < 0){ parts.push(`Carga ${String(diff).replace('.', ',')} kg`); cls = 'comparedown'; }
+    else { parts.push('Carga igual'); cls = 'compareeq'; }
+  }
+
+  const curRepsRaw = String(currentSet.reps || '').trim();
+  const prevRepsRaw = String(previousSet.reps || '').trim();
+  const curReps = Number(curRepsRaw.replace(',', '.'));
+  const prevReps = Number(prevRepsRaw.replace(',', '.'));
+  if(curRepsRaw && prevRepsRaw && Number.isFinite(curReps) && Number.isFinite(prevReps)){
+    const diff = curReps - prevReps;
+    if(diff > 0) parts.push(`Reps +${diff}`);
+    else if(diff < 0) parts.push(`Reps ${diff}`);
+    else parts.push('Reps iguais');
+  }
+
+  const curRir = String(currentSet.rir || '').trim();
+  const prevRir = String(previousSet.rir || '').trim();
+  if(curRir && prevRir){
+    if(curRir !== prevRir) parts.push(`RIR ${prevRir} → ${curRir}`);
+    else parts.push('RIR igual');
+  }
+
+  return {text: parts.length ? parts.join(' · ') : 'Preencha a série para comparar.', cls};
+}
+function seriesLineChart(history, ex){
+  const count = setCountFromExercise(ex);
+  const recent = (history || []).slice(0,5).reverse();
+  if(recent.length < 2 || count < 1) return '';
+
+  const colors = ['#e8f542', '#60a5fa', '#c084fc', '#fb923c'];
+  const labels = recent.map((h, idx) => h.date || `R${idx+1}`);
+  const datasets = Array.from({length:count}, (_, idx) => {
+    const n = idx + 1;
+    return { n, values: recent.map(h => parseLoad(h[`set${n}_load`])) };
+  }).filter(ds => ds.values.some(v => v !== null));
+
+  if(!datasets.length) return '';
+
+  const flat = datasets.flatMap(ds => ds.values).filter(v => v !== null);
+  if(!flat.length) return '';
+
+  const minVal = Math.min(...flat);
+  const maxVal = Math.max(...flat);
+  const range = Math.max(maxVal - minVal, 1);
+  const w = 340, h = 180, padX = 28, padY = 22;
+  const xFor = i => padX + i * ((w - padX*2) / Math.max(recent.length - 1, 1));
+  const yFor = v => h - padY - ((v - minVal) / range) * (h - padY*2);
+
+  return `<div class="multilinewrap">
+    <div class="minititle">Progressão por série</div>
+    <svg class="multilinechart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="Gráfico por série">
+      <line x1="${padX}" y1="${h-padY}" x2="${w-padX}" y2="${h-padY}" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+      <line x1="${padX}" y1="${padY}" x2="${padX}" y2="${h-padY}" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+      ${datasets.map((ds, idx) => {
+        const pts = ds.values.map((v, i) => v === null ? null : {x:xFor(i), y:yFor(v)});
+        let path = '';
+        let drawing = false;
+        pts.forEach(p => {
+          if(!p){ drawing = false; return; }
+          path += `${drawing ? ' L ' : 'M '}${p.x} ${p.y}`;
+          drawing = true;
+        });
+        const valid = pts.filter(Boolean);
+        if(!valid.length) return '';
+        return `<path d="${path.trim()}" fill="none" stroke="${colors[idx % colors.length]}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+          ${valid.map(p => `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${colors[idx % colors.length]}"></circle>`).join('')}`;
+      }).join('')}
+      ${labels.map((lab, i) => `<text x="${xFor(i)}" y="${h - 8}" text-anchor="middle" fill="rgba(181,181,188,.82)" font-size="10" font-family="JetBrains Mono, monospace">${lab}</text>`).join('')}
+    </svg>
+    <div class="multilegend">
+      ${datasets.map((ds, idx) => `<span class="item"><span class="dot" style="background:${colors[idx % colors.length]}"></span>Série ${ds.n}</span>`).join('')}
+    </div>
+  </div>`;
+}
+
+function setInputsHtml(sessionKey, ex, log){
+  const count = setCountFromExercise(ex);
+  ensureLegacySets(log);
+  const ref = referenceEntry(ex, log);
+  let html = '<div class="setsgrid">';
+  for(let i=1;i<=count;i++){
+    const prev = ref ? { load: ref[`set${i}_load`], reps: ref[`set${i}_reps`], rir: ref[`set${i}_rir`] } : null;
+    const current = getSetSnapshot(log, i);
+    const cmp = compareSetInfo(current, prev);
+    html += `<div class="setcard ${log[`set${i}_done`] ? 'done' : ''}">
+      <div class="sethead">Série ${i}</div>
+      <div class="setfields">
+        <div class="field"><label>Carga (kg)</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="set${i}_load" value="${log[`set${i}_load`] || ''}"></div>
+        <div class="field"><label>Reps feitas</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="set${i}_reps" value="${log[`set${i}_reps`] || ''}"></div>
+        <div class="field"><label>RIR real</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="set${i}_rir" value="${log[`set${i}_rir`] || ''}"></div>
+      </div>
+      <div class="setcompare"><span class="${cmp.cls || ''}">${cmp.text}</span></div>
+      <label class="setcheck"><input type="checkbox" data-s="${sessionKey}" data-e="${ex.key}" data-k="set${i}_done" ${log[`set${i}_done`] ? 'checked' : ''}><span>Check-in da série</span></label>
+    </div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+
+function exerciseHtml(sessionKey, ex, i){
+  const log = getLog(sessionKey, ex.key);
+  const ref = referenceEntry(ex, log);
+  const currentLoad = currentLoadValue(ex, log);
+  const setCount = setCountFromExercise(ex);
+  const currentLog = { load: currentLoad, reps: totalPerformedReps(log, setCount), rir: averagePerformedRir(log, setCount), effort: log.effort };
+  const comparison = compareInfo(currentLog, ref || null);
+  return `<div class="exercise ${comparisonExerciseClass(comparison)}">
+    <div class="ehead"><span class="enum">${String(i+1).padStart(2,'0')}</span><span class="ename">${ex.name}</span><span class="pill ${techCls(ex.tech)}">${ex.tech}</span></div>
+    <div class="metrics">
+      <div class="metric"><div class="ml">Séries</div><div class="mv">${ex.sets}</div></div>
+      <div class="metric"><div class="ml">Reps</div><div class="mv">${ex.reps}</div></div>
+      <div class="metric"><div class="ml">RIR</div><div class="mv">${ex.rir}</div></div>
+    </div>
+    <div class="how"><div class="howt">Como fazer</div><div class="howb">${ex.how}</div></div>
+    <div class="how">
+      <div class="howt">Comparativo com o último treino</div>
+      <div class="howb">
+        ${lastLoadLabel(ex, ref)}
+        <br><span class="${comparison.cls}">${comparison.text}</span>
+      </div>
+    </div>
+    <div class="obs">${ex.obs}</div>
+    ${isDipsExercise(ex) ? '' : setInputsHtml(sessionKey, ex, log)}
+    <div class="log">
+      ${loadFieldsHtml(sessionKey, ex, log)}
+      ${isDipsExercise(ex) ? `<div class="field"><label>Reps feitas</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="reps" value="${log.reps}"></div>
+      <div class="field"><label>RIR real</label><input data-s="${sessionKey}" data-e="${ex.key}" data-k="rir" value="${log.rir}"></div>` : ''}
+      <div class="field"><label>Esforço (1–10)</label><input type="number" min="1" max="10" step="1" data-s="${sessionKey}" data-e="${ex.key}" data-k="effort" value="${log.effort}"></div>
+      <div class="field"><label>Check-up</label><div class="checkrow"><input type="checkbox" data-s="${sessionKey}" data-e="${ex.key}" data-k="done" ${log.done ? 'checked' : ''}><span class="checklabel">Confirmar exercício</span></div></div>
+      <div class="field wide"><label>Observações</label><textarea data-s="${sessionKey}" data-e="${ex.key}" data-k="notes">${log.notes}</textarea></div>
+    </div>
+    
+    ${historyHtml(log.history, ex)}
+  </div>`;
+}
+
+
+    function getTimer(sessionKey){
+      APP.timers ||= {};
+      APP.timers[sessionKey] ||= { elapsedMs:0, startedAt:null, isRunning:false, lastFinishedMs:0 };
+      return APP.timers[sessionKey];
+    }
+    function currentElapsedMs(sessionKey){
+      const timer = getTimer(sessionKey);
+      if(timer.isRunning && timer.startedAt){
+        return timer.elapsedMs + Math.max(0, Date.now() - timer.startedAt);
+      }
+      return timer.elapsedMs || 0;
+    }
+    function formatTimer(ms){
+      const totalSec = Math.max(0, Math.floor(ms / 1000));
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      if(h > 0) return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+    function timerStatusText(sessionKey){
+      const timer = getTimer(sessionKey);
+      if(timer.isRunning) return 'Em andamento';
+      if((timer.elapsedMs || 0) > 0) return 'Pausado';
+      return 'Pronto para iniciar';
+    }
+    function renderTimerBox(sessionKey){
+      return `<div class="timerbox">
+        <div class="timerhead">
+          <div>
+            <div class="timerlabel">Tempo da sessão</div>
+            <div class="timerstatus" id="timerStatus-${sessionKey}">${timerStatusText(sessionKey)}</div>
+          </div>
+          <div class="timervalue" id="timerValue-${sessionKey}">${formatTimer(currentElapsedMs(sessionKey))}</div>
+        </div>
+        <div class="timeractions">
+          <button class="timerbtn primary" type="button" data-timer-start="${sessionKey}">Iniciar</button>
+          <button class="timerbtn" type="button" data-timer-pause="${sessionKey}">Pausar</button>
+          <button class="timerbtn" type="button" data-timer-reset="${sessionKey}">Resetar</button>
+        </div>
+        <div class="timerhint">O cronômetro acompanha a sessão em tempo real e é salvo ao finalizar a sessão.</div>
+      </div>`;
+    }
+    function updateTimerUI(){
+      document.querySelectorAll('[id^="timerValue-"]').forEach(el => {
+        const sessionKey = el.id.replace('timerValue-','');
+        el.textContent = formatTimer(currentElapsedMs(sessionKey));
+        const statusEl = document.getElementById(`timerStatus-${sessionKey}`);
+        if(statusEl) statusEl.textContent = timerStatusText(sessionKey);
+      });
+    }
+    function startSessionTimer(sessionKey){
+      const timer = getTimer(sessionKey);
+      if(timer.isRunning) return;
+      timer.startedAt = Date.now();
+      timer.isRunning = true;
+      saveState(true);
+      updateTimerUI();
+    }
+    function pauseSessionTimer(sessionKey){
+      const timer = getTimer(sessionKey);
+      if(!timer.isRunning || !timer.startedAt) return;
+      timer.elapsedMs = currentElapsedMs(sessionKey);
+      timer.startedAt = null;
+      timer.isRunning = false;
+      saveState(true);
+      updateTimerUI();
+    }
+    function resetSessionTimer(sessionKey){
+      const timer = getTimer(sessionKey);
+      timer.elapsedMs = 0;
+      timer.startedAt = null;
+      timer.isRunning = false;
+      saveState(true);
+      updateTimerUI();
+    }
+
+    function sectionHtml(key){
+      const s = SESSIONS[key];
+      return `<div class="sectionhead ${s.cls}" data-id="${s.id}"><div class="shey">${s.eyebrow}</div><div class="sht">${s.title}</div><div class="shr">${s.summary}</div></div>
+      <div class="sessionnote"><p>${s.note[0]}</p><p>${s.note[1]}</p></div>
+      ${renderTimerBox(key)}
+      <div class="elist">
+        ${s.exercises.map((ex,i)=>exerciseHtml(key,ex,i)).join('')}
+        <div class="finishwrap">
+          <button class="finishbtn" type="button" onclick="finishSession('${key}')">Finalizar sessão</button>
+          <div class="finishsub">Salva a sessão no aparelho e limpa os check-ins para o próximo treino, mantendo o histórico.</div>
+        </div>
+      </div>`;
+    }
+    function sessionDone(key){ return SESSIONS[key].exercises.every(ex => getLog(key, ex.key).done); }
+    function completedExercises(){ let done=0,total=0; Object.keys(SESSIONS).forEach(k=>SESSIONS[k].exercises.forEach(ex=>{ total++; if(getLog(k,ex.key).done) done++; })); return {done,total}; }
+    function buildNav(){
+      const items=[['inicio','Início'],['u1','Push'],['l1','Pull'],['u2','Legs'],['l2','Upper'],['d6','Lower'],['coach','Coach'],['tecnicas','Técnicas'],['historico','Histórico']];
+      return items.map(([id,label],idx)=>`<button class="${idx===0?'active':''}" data-target="${id}">${label}</button>`).join('');
+    }
+    function renderInicio(){
+      return `<div class="hero">
+        <div class="eyebrow">Team RHG · ficha offline do aluno</div>
+        <div class="title">${APP.athlete}</div>
+        <div class="subtitle">Hipertrofia · Intermediário · ${APP.plan}</div>
+        <div class="tags" style="margin-bottom:16px">
+          <span class="tag">Offline</span><span class="tag">Resumo para WhatsApp</span><span class="tag">Progressão linear</span><span class="tag">Isoladores U1 em RIR 1–0</span>
+        </div>
+        <div class="weekrow">
+          <button class="week a" data-open="u1"><div class="wk1">DIA 1</div><div class="wk2">PUSH</div><div class="wk3">peito, ombros e tríceps<br>empurradas + isoladores</div></button>
+          <button class="week b" data-open="l1"><div class="wk1">DIA 2</div><div class="wk2">PULL</div><div class="wk3">costas, bíceps e posterior<br>puxadas + remadas</div></button>
+          <button class="week c" data-open="u2"><div class="wk1">DIA 3</div><div class="wk2">LEGS</div><div class="wk3">dominante de joelho + quadril<br>pernas completas</div></button>
+          <button class="week d" data-open="l2"><div class="wk1">DIA 5</div><div class="wk2">UPPER</div><div class="wk3">segunda frequência do superior<br>vetores complementares</div></button>
+          <button class="week b" data-open="d6"><div class="wk1">DIA 6</div><div class="wk2">LOWER</div><div class="wk3">segunda frequência do inferior<br>quadríceps + glúteos + panturrilhas</div></button>
+        </div>
+      </div>
+      <div class="note">Os dados ficam salvos neste aparelho. Dia 4 é descanso ativo, então a ficha concentra os 5 dias de treino da Gabriela.</div>`;
+    }
+    function renderCoach(){
+      const comp = completedExercises(), pct = comp.total ? Math.round(comp.done/comp.total*100) : 0, doneSessions = Object.keys(SESSIONS).filter(sessionDone).length, totalSessions = Object.keys(SESSIONS).length;
+      return `<div class="stats">
+        <div class="stitle">Painel do coach</div>
+        <div class="statsrow">
+          <div class="stat"><div class="snum">${doneSessions}/${totalSessions}</div><div class="slab">sessões concluídas</div></div>
+          <div class="stat"><div class="snum">${comp.done}/${comp.total}</div><div class="slab">exercícios concluídos</div></div>
+          <div class="stat"><div class="snum">${pct}%</div><div class="slab">progresso semanal</div></div>
+        </div>
+        <div class="note">Volume semanal revisado após as trocas do Push e do Legs. A ficha continua com o mesmo sistema de séries, histórico, comparativo e compartilhamento.</div>
+      </div>
+      <div class="stats" style="margin-top:10px">
+        <div class="stitle">Séries semanais</div>
+        ${VOLUME.map(v=>`<div class="vr"><div>${v[0]}</div><div class="vnum">${v[1]}</div></div>`).join('')}
+      </div>`;
+    }
+    function renderTechs(){
+      return `<div class="tech">
+        <div class="stitle">Técnicas explicadas de forma simples</div>
+        <div class="note">Se ele clicar em cada técnica, aparece uma explicação um pouco maior — ainda simples, sem ficar massivo.</div>
+      </div>
+      ${TECHS.map(t=>`<div class="tech techcard" data-tech-card style="margin-top:10px">
+        <div class="techname"><span>${t.name}</span><span class="pill ${t.cls}">${t.name}</span></div>
+        <div class="techdesc">${t.desc}</div>
+        <div class="techtip">Clique para entender melhor</div>
+        <div class="techmore"><div class="techdesc">${t.more}</div></div>
+      </div>`).join('')}`;
+    }
+
+
+function comparisonExerciseClass(comparison){
+  if(!comparison || !comparison.cls) return '';
+  if(comparison.cls === 'compareup') return 'comp-up';
+  if(comparison.cls === 'comparedown') return 'comp-down';
+  if(comparison.cls === 'compareeq') return 'comp-eq';
+  return '';
+}
+
+function loadLineChart(previousEntry, currentLoad){
+  const points = [];
+  if(previousEntry){
+    const last = parseLoad(previousEntry.load);
+    if(last !== null) points.push({label:'Último', value:last, kind:'prev'});
+  }
+  const cur = parseLoad(currentLoad);
+  if(cur !== null) points.push({label:'Atual', value:cur, kind:'curr'});
+  if(points.length < 2) return '';
+
+  const w = 320, h = 140, pad = 24;
+  const maxVal = Math.max(...points.map(p => p.value), 1);
+  const minVal = Math.min(...points.map(p => p.value), 0);
+  const range = Math.max(maxVal - minVal, 1);
+
+  const coords = points.map((p, i) => {
+    const x = pad + (i * (w - pad*2) / Math.max(points.length - 1, 1));
+    const y = h - pad - ((p.value - minVal) / range) * (h - pad*2);
+    return {...p, x, y};
+  });
+
+  const path = coords.map((p, i) => `${i===0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
+  const areaPath = `${path} L ${coords[coords.length-1].x} ${h-pad} L ${coords[0].x} ${h-pad} Z`;
+
+  return `<div class="linewrap">
+    <div class="minititle">Linha de carga: último treino x atual</div>
+    <svg class="linechart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="Gráfico de linha da carga">
+      <line x1="${pad}" y1="${h-pad}" x2="${w-pad}" y2="${h-pad}" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h-pad}" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+      <path d="${areaPath}" fill="rgba(232,245,66,.08)"></path>
+      <path d="${path}" fill="none" stroke="rgba(232,245,66,.9)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+      ${coords.map(p => `
+        <circle cx="${p.x}" cy="${p.y}" r="4.5" fill="${p.kind === 'curr' ? 'rgba(232,245,66,.95)' : 'rgba(255,255,255,.75)'}"></circle>
+        <text x="${p.x}" y="${p.y - 10}" text-anchor="middle" fill="rgba(243,243,244,.9)" font-size="10" font-family="JetBrains Mono, monospace">${String(p.value).replace('.', ',')}kg</text>
+        <text x="${p.x}" y="${h - 8}" text-anchor="middle" fill="rgba(181,181,188,.8)" font-size="10" font-family="JetBrains Mono, monospace">${p.label}</text>
+      `).join('')}
+    </svg>
+    <div class="linelegend">
+      <span class="litem"><span class="ldot prev"></span> último treino salvo</span>
+      <span class="litem"><span class="ldot curr"></span> treino atual</span>
+    </div>
+  </div>`;
+}
+
+function comparisonBadge(current, previous){
+  const cur = parseLoad(current), prev = parseLoad(previous);
+  if(cur === null || prev === null) return '';
+  const diff = +(cur - prev).toFixed(2);
+  if(diff > 0) return `<span class="badge-up">+${String(diff).replace('.', ',')} kg</span>`;
+  if(diff < 0) return `<span class="badge-down">${String(diff).replace('.', ',')} kg</span>`;
+  return `<span class="badge-eq">mesma carga</span>`;
+}
+
+function parseLoad(value){
+  if(value === undefined || value === null) return null;
+  const cleaned = String(value).replace(',', '.').replace(/[^0-9.\-]/g, '').trim();
+  if(!cleaned) return null;
+  const num = Number(cleaned);
+  return Number.isFinite(num) ? num : null;
+}
+
+function compareInfo(currentLog, previousLog){
+  if(!previousLog) return {text:'Sem treino anterior salvo para comparar.', cls:''};
+
+  const parts = [];
+  let cls = '';
+
+  const curLoad = parseLoad(currentLog?.load);
+  const prevLoad = parseLoad(previousLog?.load);
+  if(curLoad !== null && prevLoad !== null){
+    const diff = +(curLoad - prevLoad).toFixed(2);
+    if(diff > 0){
+      parts.push(`Carga: +${String(diff).replace('.', ',')} kg`);
+      cls = 'compareup';
+    }else if(diff < 0){
+      parts.push(`Carga: ${String(diff).replace('.', ',')} kg`);
+      cls = cls || 'comparedown';
+    }else{
+      parts.push('Carga igual');
+      cls = cls || 'compareeq';
+    }
+  }
+
+  const curReps = String(currentLog?.reps || '').trim();
+  const prevReps = String(previousLog?.reps || '').trim();
+  if(curReps && prevReps){
+    const c = Number(curReps.replace(',', '.'));
+    const p = Number(prevReps.replace(',', '.'));
+    if(Number.isFinite(c) && Number.isFinite(p)){
+      const diff = c - p;
+      if(diff > 0){
+        parts.push(`Reps: +${diff}`);
+        if(!cls || cls === 'compareeq') cls = 'compareup';
+      }else if(diff < 0){
+        parts.push(`Reps: ${diff}`);
+        if(!cls) cls = 'comparedown';
+      }else{
+        parts.push('Reps iguais');
+        if(!cls) cls = 'compareeq';
+      }
+    }
+  }
+
+  const curRir = String(currentLog?.rir || '').trim();
+  const prevRir = String(previousLog?.rir || '').trim();
+  if(curRir && prevRir && curRir !== prevRir){
+    parts.push(`RIR: ${prevRir} → ${curRir}`);
+  }
+
+  const curEffort = String(currentLog?.effort || '').trim();
+  const prevEffort = String(previousLog?.effort || '').trim();
+  if(curEffort && prevEffort && curEffort !== prevEffort){
+    parts.push(`Esforço: ${prevEffort}/10 → ${curEffort}/10`);
+  }
+
+  if(!parts.length) return {text:'Preencha os dados de hoje para comparar.', cls:''};
+  return {text: parts.join(' · '), cls: cls || 'compareeq'};
+}
+
+function renderHistorico(){
+  const sessionBlocks = Object.entries(SESSIONS).map(([sessionKey, session]) => {
+    const exercisesWithHistory = session.exercises.filter(ex => {
+      const log = getLog(sessionKey, ex.key);
+      return log.history && log.history.length;
+    });
+
+    if(!exercisesWithHistory.length) return '';
+
+    const exerciseBlocks = exercisesWithHistory.map(ex => {
+      const log = getLog(sessionKey, ex.key);
+      return `
+        <div class="histgroup" data-hist-group style="margin-bottom:10px">
+          <button class="histtoggle" type="button">
+            <div class="histtop">
+              <div class="histleft">
+                <div class="histmeta">${session.title}</div>
+                <div class="hist-ex-title">${ex.name}</div>
+              </div>
+              <div class="histchev">abrir</div>
+            </div>
+          </button>
+          <div class="histcontent">
+            <div class="histmini">Aqui ficam os comparativos, os números e o gráfico desse exercício dentro da sessão ${session.title}.</div>
+            <div class="histactions">
+              <button class="histclearbtn" type="button" data-clear-hist data-s="${sessionKey}" data-e="${ex.key}">Limpar histórico</button>
+            </div>
+            ${seriesLineChart(log.history, ex)}
+            ${log.history.map((h, idx) => {
+              const prev = idx < log.history.length - 1 ? log.history[idx + 1] : null;
+              return `
+                <div class="hist-entry">
+                  <strong>${h.date}</strong><br>
+                  ${h.load || '-'} kg · ${h.reps || '-'} reps totais · RIR médio ${h.rir || '-'}${h.effort ? ' · Esforço ' + h.effort + '/10' : ''}
+                  ${[(h.set1_load||h.set1_reps||h.set1_rir)?`<br>S1: ${h.set1_load||'-'} kg · ${h.set1_reps||'-'} reps · RIR ${h.set1_rir||'-'}`:'',(h.set2_load||h.set2_reps||h.set2_rir)?`<br>S2: ${h.set2_load||'-'} kg · ${h.set2_reps||'-'} reps · RIR ${h.set2_rir||'-'}`:'',(h.set3_load||h.set3_reps||h.set3_rir)?`<br>S3: ${h.set3_load||'-'} kg · ${h.set3_reps||'-'} reps · RIR ${h.set3_rir||'-'}`:'',(h.set4_load||h.set4_reps||h.set4_rir)?`<br>S4: ${h.set4_load||'-'} kg · ${h.set4_reps||'-'} reps · RIR ${h.set4_rir||'-'}`:''].join('')}
+                  ${prev ? [1,2,3,4].map(n => (h[`set${n}_load`] || prev[`set${n}_load`]) ? `<br><span class="${compareText(h[`set${n}_load`], prev[`set${n}_load`]).cls}">S${n}: ${compareText(h[`set${n}_load`], prev[`set${n}_load`]).text}</span>` : '').join('') : ''}
+                  ${h.notes ? `<br>${h.notes}` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div class="histsession" data-hist-session>
+        <button class="histsessiontoggle" type="button">
+          <div class="histsessiontop">
+            <div>
+              <div class="histsessionmeta">${session.eyebrow || session.title}</div>
+              <div class="histsessiontitle">${session.title}</div>
+            </div>
+            <div class="histsessioncount">${exercisesWithHistory.length} exercício(s) com histórico</div>
+          </div>
+        </button>
+        <div class="histsessioncontent">
+          ${exerciseBlocks}
+        </div>
+      </div>
+    `;
+  }).filter(Boolean);
+
+  return `
+    <div class="stats">
+      <div class="stitle">Histórico dos treinos</div>
+      <div class="note">O histórico agora fica separado por sessão. A aluna abre a sessão e depois abre cada exercício para ver comparativos, números e gráficos.</div>
+    </div>
+    ${sessionBlocks.length ? sessionBlocks.join('') : '<div class="histpage-card">Ainda não há histórico salvo. Depois que ela concluir os exercícios, os registros aparecem aqui.</div>'}
+  `;
+}
+
+    function renderAll(){
+      document.getElementById('nav').innerHTML = buildNav();
+      document.getElementById('inicio').innerHTML = renderInicio();
+      document.getElementById('u1').innerHTML = sectionHtml('u1');
+      document.getElementById('l1').innerHTML = sectionHtml('l1');
+      document.getElementById('u2').innerHTML = sectionHtml('u2');
+      document.getElementById('l2').innerHTML = sectionHtml('l2');
+      document.getElementById('d6').innerHTML = sectionHtml('d6');
+      document.getElementById('coach').innerHTML = renderCoach();
+      document.getElementById('tecnicas').innerHTML = renderTechs();
+      document.getElementById('historico').innerHTML = renderHistorico();
+
+      document.querySelectorAll('.nav button').forEach(btn => btn.onclick = ()=>showSection(btn.dataset.target));
+      document.querySelectorAll('[data-open]').forEach(btn => btn.onclick = ()=>showSection(btn.dataset.open));
+      document.querySelectorAll('[data-tech-card]').forEach(card => card.onclick = ()=>card.classList.toggle('open'));
+      document.querySelectorAll('[data-hist-session]').forEach(group => {
+        const btn = group.querySelector('.histsessiontoggle');
+        if(btn){
+          btn.onclick = () => group.classList.toggle('open');
+        }
+      });
+      document.querySelectorAll('[data-hist-group]').forEach(group => {
+        const btn = group.querySelector('.histtoggle');
+        if(btn){
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            group.classList.toggle('open');
+            const chev = group.querySelector('.histchev');
+            if(chev) chev.textContent = group.classList.contains('open') ? 'fechar' : 'abrir';
+          };
+        }
+      });
+      document.querySelectorAll('[data-clear-hist]').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          clearExerciseHistory(btn.dataset.s, btn.dataset.e);
+        };
+      });
+      document.querySelectorAll('[data-timer-start]').forEach(btn => {
+        btn.onclick = () => startSessionTimer(btn.dataset.timerStart);
+      });
+      document.querySelectorAll('[data-timer-pause]').forEach(btn => {
+        btn.onclick = () => pauseSessionTimer(btn.dataset.timerPause);
+      });
+      document.querySelectorAll('[data-timer-reset]').forEach(btn => {
+        btn.onclick = () => resetSessionTimer(btn.dataset.timerReset);
+      });
+      updateTimerUI();
+      document.querySelectorAll('input, textarea, select').forEach(el => {
+        el.oninput = el.onchange = () => {
+          const s = el.dataset.s, e = el.dataset.e, k = el.dataset.k;
+          if(!s || !e || !k) return;
+          const log = getLog(s,e);
+          const ex = (SESSIONS[s]?.exercises || []).find(item => item.key === e);
+          log[k] = (k === 'done' || k.endsWith('_done')) ? !!el.checked : el.value;
+
+          if(ex && !isDipsExercise(ex) && k.startsWith('set') && k.endsWith('_done')){
+            log.done = areAllSetsChecked(log, setCountFromExercise(ex));
+            if(log.done) pushHistory(s, e);
+            saveState(true);
+            const active = document.querySelector('.section.active')?.id || 'inicio';
+            renderAll();
+            showSection(active, false);
+            return;
+          }
+
+          if(k === 'done'){
+            if(log.done) pushHistory(s, e);
+            saveState(true);
+            const active = document.querySelector('.section.active')?.id || 'inicio';
+            renderAll();
+            showSection(active, false);
+            return;
+          }
+          saveState(true);
+        };
+      });
+    }
+    function showSection(id, scrollTop=true){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active', b.dataset.target===id));
+      if(scrollTop){
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+    }
+
+    function clearExerciseHistory(sessionKey, exKey){
+      const log = getLog(sessionKey, exKey);
+      log.history = [];
+      for(let i=1;i<=4;i++) log[`set${i}_done`] = false;
+      log.done = false;
+      saveState(true);
+      renderAll();
+      showSection('historico', false);
+      showToast('Histórico do exercício limpo.');
+    }
+
+
+    function sessionMusclesForShare(sessionKey){
+      const map = {
+        u1:'Peito • Ombros • Tríceps',
+        l1:'Costas • Bíceps • Posterior de ombro',
+        u2:'Quadríceps • Posteriores • Glúteos • Panturrilhas',
+        l2:'Peito • Costas • Bíceps • Tríceps',
+        d6:'Quadríceps • Posteriores • Glúteos • Panturrilhas'
+      };
+      return map[sessionKey] || 'Músculos do treino';
+    }
+    function estimatedDurationMinutes(sessionKey){
+      const count = SESSIONS[sessionKey]?.exercises?.length || 0;
+      return count * 8;
+    }
+    function formatDuration(mins){
+      const h = Math.floor(mins/60), m = mins % 60;
+      if(h && m) return `${h}h ${String(m).padStart(2,'0')}min`;
+      if(h) return `${h}h`;
+      return `${m}min`;
+    }
+    function repsForShare(ex, log){
+      if(isDipsExercise(ex)) return Number(String(log.reps || '').replace(',', '.')) || 0;
+      return Number(String(totalPerformedReps(log, setCountFromExercise(ex)) || '').replace(',', '.')) || 0;
+    }
+    function buildShareData(sessionKey){
+      const session = SESSIONS[sessionKey];
+      if(!session) return null;
+      let volume = 0, confirmed = 0, best = null;
+      session.exercises.forEach(ex => {
+        const log = getLog(sessionKey, ex.key);
+        if(log.done) confirmed++;
+        const load = parseLoad(currentLoadValue(ex, log));
+        const reps = repsForShare(ex, log);
+        if(load !== null && reps > 0) volume += load * reps;
+        if(load !== null && (!best || load > best.load)) best = {name: ex.name, load};
+      });
+      return {
+        title: session.title,
+        athlete: APP.athlete,
+        duration: formatDuration(estimatedDurationMinutes(sessionKey)),
+        volume: volume > 0 ? `${Math.round(volume).toLocaleString('pt-BR')} kg` : '--',
+        exercises: `${confirmed}/${session.exercises.length}`,
+        pr: best ? `${String(best.load).replace('.', ',')} kg` : '--',
+        muscles: sessionMusclesForShare(sessionKey),
+        bestExercise: best ? `${best.name} · ${String(best.load).replace('.', ',')} kg` : 'Sem dados ainda'
+      };
+    }
+    function fillShareCard(sessionKey){
+      const data = buildShareData(sessionKey);
+      if(!data) return;
+      document.getElementById('shareWorkoutTitle').textContent = data.title;
+      document.getElementById('shareWorkoutSubtitle').textContent = data.athlete;
+      document.getElementById('shareWorkoutMeta').textContent = `${data.duration} · ${data.muscles}`;
+      document.getElementById('shareDuration').textContent = data.duration;
+      document.getElementById('shareVolume').textContent = data.volume;
+      document.getElementById('shareExercises').textContent = data.exercises;
+      document.getElementById('sharePR').textContent = data.pr;
+      document.getElementById('shareMuscles').textContent = data.muscles;
+      document.getElementById('shareBestExercise').textContent = data.bestExercise;
+    }
+    function activeShareSession(){
+      const active = document.querySelector('.section.active')?.id || 'u1';
+      return SESSIONS[active] ? active : 'u1';
+    }
+    function openShareModal(){
+      fillShareCard(activeShareSession());
+      document.getElementById('shareModal').classList.add('show');
+    }
+    function closeShareModal(){
+      document.getElementById('shareModal').classList.remove('show');
+    }
+    async function generateShareCanvas(){
+      const card = document.getElementById('shareCard');
+      if(typeof html2canvas === 'undefined'){
+        showToast('Não foi possível carregar o gerador de imagem.');
+        return null;
+      }
+      return await html2canvas(card, {backgroundColor:null, scale:2});
+    }
+    async function downloadShareImage(){
+      const canvas = await generateShareCanvas();
+      if(!canvas) return;
+      const link = document.createElement('a');
+      link.download = 'treino-rhg.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('Imagem gerada.');
+    }
+    async function copyShareImage(){
+      try{
+        const canvas = await generateShareCanvas();
+        if(!canvas) return;
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        await navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+        showToast('Imagem copiada.');
+      }catch(e){
+        showToast('Seu navegador não permitiu copiar a imagem.');
+      }
+    }
+
+
+    
+    function playFinishAnimation(callback){
+      const overlay = document.getElementById('finishOverlay');
+      if(!overlay){
+        callback();
+        return;
+      }
+      overlay.classList.add('show');
+      setTimeout(() => {
+        overlay.classList.remove('show');
+        callback();
+      }, 1100);
+    }
+
+function finishSession(sessionKey){
+      const session = SESSIONS[sessionKey];
+      if(!session) return;
+
+      const timer = getTimer(sessionKey);
+      const finalMs = currentElapsedMs(sessionKey);
+      timer.lastFinishedMs = finalMs;
+      timer.elapsedMs = 0;
+      timer.startedAt = null;
+      timer.isRunning = false;
+
+      saveState(true);
+
+      session.exercises.forEach(ex => {
+        const log = getLog(sessionKey, ex.key);
+        log.done = false;
+        for(let i=1;i<=4;i++){
+          log[`set${i}_done`] = false;
+        }
+      });
+
+      saveState(true);
+      renderAll();
+      playFinishAnimation(() => { showSection('inicio', false); });
+      showToast(`Sessão finalizada ✅ · ${formatTimer(finalMs)}`);
+    }
+
+    function buildSummary(){
+      const parts = [`Resumo do treino — ${APP.athlete}`, `Semana: ${APP.week}`, ''];
+      Object.entries(SESSIONS).forEach(([k,s]) => {
+        parts.push(s.title);
+        s.exercises.forEach(ex => {
+          const log = getLog(k, ex.key);
+          if(log.load || log.reps || log.rir || log.notes || log.done || log.set1_load || log.set1_reps || log.set2_load || log.set2_reps || log.set3_load || log.set3_reps || log.set4_load || log.set4_reps){
+            if(isDipsExercise(ex)){
+              const total = currentLoadValue(ex, log);
+              const base = log.bodyweight ? `PC ${log.bodyweight} kg` : 'PC -';
+              const add = log.addload ? ` + ${log.addload} kg adicional` : '';
+              parts.push(`- ${ex.name}: ${base}${add} | Total ${total || '-'} kg | ${log.reps||'-'} reps | RIR ${log.rir||'-'} | ${log.done ? 'concluído' : 'pendente'}${log.notes ? ' | ' + log.notes : ''}`);
+            } else {
+              const setsTxt = Array.from({length:setCountFromExercise(ex)}, (_,idx)=>idx+1).map(n=>{
+            const l = log[`set${n}_load`] || '-';
+            const r = log[`set${n}_reps`] || '-';
+            const rr = log[`set${n}_rir`] || '-';
+            return `S${n}: ${l}kg/${r} reps/RIR ${rr}`;
+          }).join(' | ');
+          parts.push(`- ${ex.name}: ${setsTxt}${log.effort ? ' | Esforço ' + log.effort + '/10' : ''} | ${log.done ? 'concluído' : 'pendente'}${log.notes ? ' | ' + log.notes : ''}`);
+            }
+          }
+        });
+        parts.push('');
+      });
+      return parts.join('\n');
+    }
+    async function copyReport(){
+      try{
+        await navigator.clipboard.writeText(buildSummary());
+        showToast('Resumo copiado.');
+      }catch(e){
+        showToast('Não deu para copiar automaticamente.');
+      }
+    }
+    document.getElementById('reportBtn').onclick = copyReport;
+    const shareBtn = document.getElementById('shareImageBtn');
+    const shareCloseBtn = document.getElementById('shareCloseBtn');
+    const downloadShareBtn = document.getElementById('downloadShareBtn');
+    const copyShareBtn = document.getElementById('copyShareBtn');
+    const shareModal = document.getElementById('shareModal');
+    if(shareBtn) shareBtn.onclick = openShareModal;
+    if(shareCloseBtn) shareCloseBtn.onclick = closeShareModal;
+    if(downloadShareBtn) downloadShareBtn.onclick = downloadShareImage;
+    if(copyShareBtn) copyShareBtn.onclick = copyShareImage;
+    if(shareModal) shareModal.onclick = (e)=>{ if(e.target.id === 'shareModal') closeShareModal(); };
+    loadState();
+    renderAll();
+    clearInterval(window._sessionTimerInterval);
+    window._sessionTimerInterval = setInterval(updateTimerUI, 1000);
+
+
+</script>
+
+  <div class="finish-overlay" id="finishOverlay">
+    <div class="finish-card">
+      <div class="finish-check">✓</div>
+      <div class="finish-title">Sessão concluída</div>
+      <div class="finish-sub">Salvando e voltando para o início...</div>
+    </div>
+  </div>
+
+</body>
+</html>
